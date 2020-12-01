@@ -7,7 +7,9 @@ on:
   workflow_dispatch:
   release:
     types: [published]
-
+  watch:
+    types: [started]
+    
 env:
   toolchain_pkg: mipsel-linux-uclibc.tar.xz
   toolchain_url: https://github.com/hanwckf/padavan-toolchain/releases/download/v1.1
