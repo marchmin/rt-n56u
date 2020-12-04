@@ -30,7 +30,7 @@ jobs:
         pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget
         
         echo "date=$(date -d 8 hour +%Y%m%d)" >> $GITHUB_ENV
-         with:
+        with:
           name: ${{ env.date }}
 
     - name: Clone source code
