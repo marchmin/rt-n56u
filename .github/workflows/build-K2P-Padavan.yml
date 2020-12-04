@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
   release:
     types: [published]
-  watch:
-    types: [started]
+ # watch:
+  #  types: [started]
     
 env:
   toolchain_pkg: mipsel-linux-uclibc.tar.xz
