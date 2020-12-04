@@ -1,9 +1,14 @@
 name: Build K2P Padavan
 
 # Controls when the action will run. 
-
 on: 
+  release:
+    types: [published]
   push:
+   tags:
+   - 'v*'
+#on: 
+#  push:
  # pull_request:
  # workflow_dispatch:
   #  types: [published]
