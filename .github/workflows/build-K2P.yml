@@ -11,12 +11,13 @@ on:
   #  - cron: 0 17 * * 4
   watch:
     types: [started]
+    
 
 jobs:
   build:
     runs-on: ubuntu-18.04
 
-    steps:
+    steps:        
     - name: Checkout
       uses: actions/checkout@master
     - name: Initialization environment
@@ -27,12 +28,16 @@ jobs:
         sudo apt-get -y install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd fakeroot \
         cpio git python-docutils gettext automake autopoint texinfo build-essential help2man \
         pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget
+        
+        echo "date=$(date -d 8 hour +%Y%m%d)" >> $GITHUB_ENV
+         with:
+          name: ${{ env.date }}
+
     - name: Clone source code
       run: |
         cd toolchain-mipsel
         sh dl_toolchain.sh
-        mkdir -p /opt/images/
-     
+        mkdir -p /opt/images/     
     - name: Set Golang
       run: |
         cd /opt/hostedtoolcache/go
@@ -112,7 +117,6 @@ jobs:
     - name : Create archive
       if: ${{ success() }}
       run: |
-          ＃cd /opt/images
           GIT_VERSION=`git rev-parse --short=7 HEAD 2>/dev/null` && [ -n "$GIT_VERSION" ] && \
           image_name=images_${build_variant}_${GIT_VERSION} || image_name=images_${build_variant}
           cd /opt/images; md5sum *.trx |tee md5sum.txt; 7z a -mx=9 ${image_name}.7z ./*
