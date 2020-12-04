@@ -32,7 +32,7 @@ jobs:
         cd toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
-        echo "image_date=images_$(date +%Y%m%d)" >> $GITHUB_ENV
+     
     - name: Set Golang
       run: |
         cd /opt/hostedtoolcache/go
@@ -116,10 +116,11 @@ jobs:
           GIT_VERSION=`git rev-parse --short=7 HEAD 2>/dev/null` && [ -n "$GIT_VERSION" ] && \
           image_name=images_${build_variant}_${GIT_VERSION} || image_name=images_${build_variant}
           cd /opt/images; md5sum *.trx |tee md5sum.txt; 7z a -mx=9 ${image_name}.7z ./*
-          echo "image_name=${image_name}" >> $GITHUB_ENV
+          echo "image_name=${image_name}_$(date +%Y%m%d)" >> $GITHUB_ENV
+          
     - name: Upload images to Artifact
       if: ${{ success() }}
       uses: actions/upload-artifact@master
       with:
-          name: ${{ env.image_date }}
+          name: ${{ env.image_name }}
           path: /opt/images/*.7z
