@@ -32,7 +32,7 @@ jobs:
         cd toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
-        echo "image_date=images_$(date +%Y%m%d%z +0800)" >> $GITHUB_ENV
+        echo "image_date=images_$(date +%Y%m%d)" >> $GITHUB_ENV
     - name: Set Golang
       run: |
         cd /opt/hostedtoolcache/go
