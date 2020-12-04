@@ -29,7 +29,7 @@ jobs:
         cpio git python-docutils gettext automake autopoint texinfo build-essential help2man \
         pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget
         
-        echo "date=$(date -d'8 hour' +%Y%m%d)" >> $GITHUB_ENV
+        echo "date=$(date +%Y%m%d)" >> $GITHUB_ENV
         with:
           name: ${{ env.date }}
 
@@ -120,7 +120,7 @@ jobs:
           GIT_VERSION=`git rev-parse --short=7 HEAD 2>/dev/null` && [ -n "$GIT_VERSION" ] && \
           image_name=images_${build_variant}_${GIT_VERSION} || image_name=images_${build_variant}
           cd /opt/images; md5sum *.trx |tee md5sum.txt; 7z a -mx=9 ${image_name}.7z ./*
-          echo "image_name=${image_name}_$(date -d '8 hour' +%Y%m%d)" >> $GITHUB_ENV
+          echo "image_name=${image_name}_$(date +%Y%m%d)" >> $GITHUB_ENV
           
     - name: Upload images to Artifact
       if: ${{ success() }}
